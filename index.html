@@ -1,1 +1,563 @@
-<script language=javascript>document.write(unescape('%3C%21DOCTYPE%20html%3E%0A%3Chtml%20lang%3D%22en%22%3E%0A%0A%3Chead%3E%0A%20%20%20%20%3Cmeta%20charset%3D%22utf-8%22%3E%0A%20%20%20%20%3Cmeta%20http-equiv%3D%22Content-Type%22%20content%3D%22text/html%3B%20charset%3Dutf-8%22%3E%0A%20%20%20%20%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice-width%2C%20initial-scale%3D1%22%3E%0A%20%20%20%20%0A%20%20%20%20%3Ctitle%3ETorrent%20Time%3C/title%3E%0A%20%20%20%20%0A%20%20%20%20%3Cmeta%20name%3D%22description%22%20content%3D%22Create%20torrents%20in%20the%20web%20browser.%20No%20software%20needed.%22%3E%0A%20%20%20%20%3Cmeta%20name%3D%22keywords%22%20content%3D%22torrent%2C%20torrent%20file%2C%20create%20torrent%2C%20browser%20torrent%22%3E%0A%20%20%20%20%3Cmeta%20name%3D%22author%22%20content%3D%22sudo-self%22%3E%0A%0A%20%20%20%20%3C%21--%20Open%20Graph%20%28Facebook%2C%20LinkedIn%2C%20etc.%29%20--%3E%0A%20%20%20%20%3Cmeta%20property%3D%22og%3Atype%22%20content%3D%22website%22%3E%0A%20%20%20%20%3Cmeta%20property%3D%22og%3Aurl%22%20content%3D%22https%3A//torrent-time.vercel.app%22%3E%0A%20%20%20%20%3Cmeta%20property%3D%22og%3Atitle%22%20content%3D%22Torrent%20Time%22%3E%0A%20%20%20%20%3Cmeta%20property%3D%22og%3Adescription%22%20content%3D%22Create%20torrents%20in%20the%20browser.%20No%20software%20needed.%22%3E%0A%20%20%20%20%3Cmeta%20property%3D%22og%3Aimage%22%20content%3D%22https%3A//torrent-time.vercel.app/torrent.png%22%3E%0A%0A%20%20%20%20%3C%21--%20Twitter%20Meta%20Tags%20--%3E%0A%20%20%20%20%3Cmeta%20property%3D%22twitter%3Acard%22%20content%3D%22summary_large_image%22%3E%0A%20%20%20%20%3Cmeta%20property%3D%22twitter%3Aurl%22%20content%3D%22https%3A//torrent-time.vercel.app%22%3E%0A%20%20%20%20%3Cmeta%20property%3D%22twitter%3Atitle%22%20content%3D%22Torrent%20Time%22%3E%0A%20%20%20%20%3Cmeta%20property%3D%22twitter%3Adescription%22%20content%3D%22Create%20torrents%20in%20the%20browser.%20No%20software%20needed.%22%3E%0A%20%20%20%20%3Cmeta%20property%3D%22twitter%3Aimage%22%20content%3D%22https%3A//torrent-time.vercel.app/torrent.png%22%3E%0A%0A%20%20%20%20%3C%21--%20Favicon%20--%3E%0A%20%20%20%20%3Clink%20rel%3D%22shortcut%20icon%22%20href%3D%22favicon.ico%22%3E%0A%20%20%20%20%3Clink%20rel%3D%22icon%22%20type%3D%22image/x-icon%22%20sizes%3D%2216x16%2032x32%22%20href%3D%22favicon.ico%22%3E%0A%20%20%20%20%3Clink%20rel%3D%22apple-touch-icon%22%20sizes%3D%22180x180%22%20href%3D%22apple-touch-icon.png%22%3E%0A%20%20%20%20%3Clink%20rel%3D%22icon%22%20sizes%3D%22192x192%22%20href%3D%22favicon-192.png%22%3E%0A%20%20%20%20%3Clink%20rel%3D%22icon%22%20sizes%3D%2232x32%22%20href%3D%22favicon-32.png%22%3E%0A%0A%20%20%20%20%3C%21--%20Microsoft%20%26%20Theme%20Color%20--%3E%0A%20%20%20%20%3Cmeta%20name%3D%22msapplication-TileColor%22%20content%3D%22%23FFFFFF%22%3E%0A%20%20%20%20%3Cmeta%20name%3D%22msapplication-TileImage%22%20content%3D%22favicon-144.png%22%3E%0A%20%20%20%20%3Cmeta%20name%3D%22theme-color%22%20content%3D%22%23ffffff%22%3E%0A%0A%20%20%20%20%3C%21--%20Web%20App%20Manifest%20--%3E%0A%20%20%20%20%3Clink%20rel%3D%22manifest%22%20href%3D%22manifest.json%22%3E%0A%3C/head%3E%0A%0A%3Cstyle%3E%0A%0Abody%0A%7B%0A%20%20%20%20background%3A%20%23323639%3B%0A%20%20%20%20color%3A%20white%3B%0A%20%20%20%20font-family%3A%20Sans-Serif%3B%0A%7D%0A%0Abutton%0A%7B%0A%20%20%20%20background-color%3A%20%239085c4%3B%0A%20%20%20%20border%3A%20none%3B%0A%20%20%20%20border-radius%3A%205px%3B%0A%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20padding%3A%2010px%2015px%2010px%2015px%3B%0A%20%20%20%20font-family%3A%20%22Verdana%22%3B%0A%20%20%20%20font-size%3A%2024px%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20transition%3A%200.15s%3B%0A%20%20%20%20outline%3A%20none%3B%0A%7D%0A%0Abutton%3Ahover%0A%7B%0A%20%20%20%20background-color%3A%20%2354adff%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%7D%0A%0Abutton%3Adisabled%0A%7B%0A%20%20%20%20background-color%3A%20%2377abff%3B%0A%20%20%20%20cursor%3A%20not-allowed%3B%0A%7D%0A%0Atextarea%0A%7B%0A%20%20%20%20color%3A%20white%3B%0A%20%20%20%20background%3A%20%23484848%3B%0A%20%20%20%20border%3A%201px%20solid%20%238a8a8a%3B%0A%20%20%20%20font-size%3A%2022px%3B%0A%20%20%20%20margin%3A%2015px%3B%0A%20%20%20%20padding%3A%2010px%3B%0A%20%20%20%20resize%3A%20none%3B%0A%20%20%20%20white-space%3A%20nowrap%3B%0A%20%20%20%20font-family%3A%20Sans-Serif%3B%0A%7D%0A%0Atextarea%3A%3Aplaceholder%0A%7B%0A%20%20%20%20color%3A%20%23a7a7a7%3B%0A%7D%0A%0Ainput%5Btype%3D%22text%22%5D%0A%7B%0A%20%20%20%20color%3A%20white%3B%0A%20%20%20%20background%3A%20%23484848%3B%0A%20%20%20%20border%3A%201px%20solid%20%238a8a8a%3B%0A%7D%0A%0Ainput%5Btype%3D%22text%22%5D%3A%3Aplaceholder%0A%7B%0A%20%20%20%20color%3A%20%23a7a7a7%3B%0A%7D%0A%0Aa%0A%7B%0A%20%20%20%20color%3A%20%2332b2ff%3B%0A%7D%0A%0Aselect%0A%7B%0A%20%20%20%20color%3A%20white%3B%0A%20%20%20%20background%3A%20%23484848%3B%0A%20%20%20%20border%3A%201px%20solid%20%238a8a8a%3B%0A%0A%20%20%20%20font-size%3A%2022px%3B%0A%20%20%20%20padding%3A%202px%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%7D%0A%0A.progress-bar-visible%0A%7B%0A%20%20%20%20visibility%3A%20visible%3B%0A%20%20%20%20opacity%3A%201%3B%0A%20%20%20%20height%3A%2040px%3B%0A%20%20%20%20transition%3A%20opacity%200.3s%20linear%2C%20height%200.3s%20ease-in-out%3B%0A%7D%0A%0A.progress-bar-hidden%0A%7B%0A%20%20%20%20visibility%3A%20hidden%3B%0A%20%20%20%20opacity%3A%200%3B%0A%20%20%20%20height%3A%200px%3B%0A%20%20%20%20transition%3A%20visibility%200s%200.3s%2C%20opacity%200.3s%20linear%2C%20height%200.2s%20ease-in-out%3B%0A%7D%0A%0Alabel%0A%7B%0A%20%20%20%20white-space%3A%20nowrap%3B%0A%7D%0A%0A%23trackers_list_overlay%0A%7B%0A%20%20%20%20visibility%3A%20hidden%3B%0A%20%20%20%20opacity%3A%200%3B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20background%3A%20rgba%280%2C%200%2C%200%2C%200.95%29%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20left%3A%200%3B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20z-index%3A%201%3B%0A%7D%0A%0A%23trackers_list%0A%7B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20border%3A%202px%20solid%20%23606060%3B%0A%20%20%20%20border-radius%3A%2010px%3B%0A%20%20%20%20margin%3A%2020px%3B%0A%20%20%20%20background%3A%20black%3B%0A%20%20%20%20opacity%3A%201%3B%0A%20%20%20%20width%3A%20calc%28100%25%20-%2044px%29%3B%0A%20%20%20%20padding%3A%205px%3B%0A%7D%0A%0A.trackers-list-element%0A%7B%0A%20%20%20%20margin%3A%205px%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20white-space%3A%20normal%3B%0A%7D%0A%0A.tracker-list-element-hidden%0A%7B%0A%20%20%20%20visibility%3A%20hidden%3B%0A%20%20%20%20opacity%3A%200%3B%0A%20%20%20%20transition%3A%20opacity%200.15s%20ease-out%2C%20visibility%200s%200.15s%3B%0A%7D%0A%0A.input-fullwidth%0A%7B%0A%20%20%20%20width%3A%20calc%28100%25%20-%2060px%29%3B%0A%20%20%20%20font-family%3A%20Arial%2C%20Helvetica%2C%20sans-serif%3B%0A%20%20%20%20font-size%3A%2022px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20margin-left%3A%2020px%3B%0A%7D%0A%0A%3C/style%3E%0A%0A%0A%3Cbody%3E%0A%3Cdiv%20id%3D%22no_worker_warning%22%20style%3D%22display%3A%20none%3B%20margin%3A%2020px%3B%20color%3A%20%23ff3d58%3B%20font-size%3A%2020px%3B%22%3E%0A%20%20%20%20Your%20browser%20does%20not%20support%20%3Ca%20href%3D%22https%3A//caniuse.com/%23feat%3Dwebworkers%22%3Eweb%20workers%3C/a%3E.%0A%3C/div%3E%0A%3Cdiv%20id%3D%22page%22%3E%0A%3Ca%20href%3D%22https%3A//github.com/sudo-self/torrent-time%22%20style%3D%22position%3A%20absolute%3B%20width%3A%2032px%3B%20height%3A%2032px%3B%20top%3A20px%3B%20right%3A20px%3B%22%3E%0A%20%20%20%20%3Csvg%20role%3D%22img%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20fill%3D%22white%22%20d%3D%22M12%20.297c-6.63%200-12%205.373-12%2012%200%205.303%203.438%209.8%208.205%2011.385.6.113.82-.258.82-.577%200-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422%2018.07%203.633%2017.7%203.633%2017.7c-1.087-.744.084-.729.084-.729%201.205.084%201.838%201.236%201.838%201.236%201.07%201.835%202.809%201.305%203.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93%200-1.31.465-2.38%201.235-3.22-.135-.303-.54-1.523.105-3.176%200%200%201.005-.322%203.3%201.23.96-.267%201.98-.399%203-.405%201.02.006%202.04.138%203%20.405%202.28-1.552%203.285-1.23%203.285-1.23.645%201.653.24%202.873.12%203.176.765.84%201.23%201.91%201.23%203.22%200%204.61-2.805%205.625-5.475%205.92.42.36.81%201.096.81%202.22%200%201.606-.015%202.896-.015%203.286%200%20.315.21.69.825.57C20.565%2022.092%2024%2017.592%2024%2012.297c0-6.627-5.373-12-12-12%22%3E%3C/path%3E%0A%20%20%20%20%3C/svg%3E%0A%3C/a%3E%0A%3Ca%20id%3D%22download_link%22%20style%3D%22display%3A%20none%22%3E%3C/a%3E%0A%0A%3Cdiv%20style%3D%22font-size%3A%2032px%3B%20margin%3A%205px%200px%2015px%2020px%3B%22%3ETorrent%20Time%3C/div%3E%0A%3Cbutton%20style%3D%22width%3A%20200px%3B%20margin%3A%205px%200px%205px%2020px%3B%22%20id%3D%22filechooserbutton%22%20onclick%3D%22document.getElementById%28%27filechooser%27%29.click%28%29%22%3ESelect%20file%3C/button%3E%0A%3Cbutton%20style%3D%22width%3A%20200px%3B%20margin%3A%205px%200px%205px%2020px%3B%22%20id%3D%22folderchooserbutton%22%20onclick%3D%22document.getElementById%28%27folderchooser%27%29.click%28%29%22%3ESelect%20folder%3C/button%3E%0A%3Cdiv%20id%3D%22selected_file_info%22%20style%3D%22display%3A%20inline%3B%20font-size%3A%2022px%3B%20margin-left%3A%2030px%3B%22%3E%3C/div%3E%0A%3Cbr%20/%3E%0A%3Cinput%20type%3D%22file%22%20style%3D%22display%3A%20none%22%20id%3D%22filechooser%22%20onclick%3D%22this.value%3Dnull%22%20onchange%3D%22FileSelected%28this.files%29%22%3E%0A%3Cinput%20type%3D%22file%22%20style%3D%22display%3A%20none%22%20id%3D%22folderchooser%22%20webkitdirectory%20onclick%3D%22this.value%3Dnull%22%20onchange%3D%22FolderSelected%28this.files%29%22%3E%0A%0A%3Cdiv%20id%3D%22no_folder_warning%22%20style%3D%22display%3A%20none%3B%20margin%3A%2020px%3B%20color%3A%20%23ff3d58%3B%20font-size%3A%2020px%3B%22%3E%0A%20%20%20%20Your%20browser%20does%20not%20support%20folder%20selection%2C%20so%20you%20can%20only%20create%20torrent%20files%20from%20single%20files.%20You%20can%20check%20which%20browsers%20support%20folder%20selection%0A%20%20%20%20%3Ca%20href%3D%22https%3A//caniuse.com/%23feat%3Dinput-file-directory%22%3Ehere.%3C/a%3E%26nbsp%3B%26nbsp%3B%26nbsp%3B%26nbsp%3B%0A%20%20%20%20%3Ca%20href%3D%22javascript%3Avoid%280%29%22%20onclick%3D%22document.getElementById%28%27no_folder_warning%27%29.style.display%3D%27none%27%22%3E%28hide%20warning%29%3C/a%3E%0A%3C/div%3E%0A%3Cdiv%20id%3D%22no_wasm_warning%22%20style%3D%22display%3A%20none%3B%20margin-left%3A%2020px%3B%20color%3A%20%23ff3d58%3B%20font-size%3A%2020px%3B%22%3E%0A%20%20%20%20Warning%3A%20your%20browser%20does%20not%20support%20webassembly.%20It%20can%20take%20a%20loooong%20time%20to%20read%20large%20files.%20You%20can%20check%20which%20browsers%20support%20webassembly%0A%20%20%20%20%3Ca%20href%3D%22https%3A//caniuse.com/%23feat%3Dwasm%22%3Ehere.%3C/a%3E%26nbsp%3B%26nbsp%3B%26nbsp%3B%26nbsp%3B%0A%20%20%20%20%3Ca%20href%3D%22javascript%3Avoid%280%29%22%20onclick%3D%22document.getElementById%28%27no_wasm_warning%27%29.style.display%3D%27none%27%22%3E%28hide%20warning%29%3C/a%3E%0A%3C/div%3E%0A%0A%3Cinput%20type%3D%22text%22%20id%3D%22torrent_name%22%20class%3D%22input-fullwidth%22%20style%3D%22margin%3A%2020px%3B%22%20placeholder%3D%22title%22%20oninput%3D%22TorrentParamsChanged%28%27name%27%29%22%3E%0A%3Cbr%20/%3E%0A%0A%3Cdiv%20style%3D%22display%3A%20flex%3B%20flex-wrap%3A%20wrap%3B%22%3E%0A%20%20%20%20%3Clabel%20style%3D%22display%3A%20inline%3B%20margin-left%3A%2030px%3B%20font-size%3A%2022px%3B%20border-right%3A%20100px%20solid%20transparent%3B%22%3Eblock%20size%0A%20%20%20%20%3Cselect%20id%3D%22torrent_block_size%22%20style%3D%22width%3A%20200px%3B%20margin-left%3A%2020px%3B%20margin-bottom%3A%2020px%3B%22%20oninput%3D%22TorrentParamsChanged%28%27blocksize%27%29%22%3E%0A%20%20%20%20%20%20%20%20%3Coption%20value%3D%220%22%3EAutomatic%3C/option%3E%0A%20%20%20%20%20%20%20%20%3Coption%20value%3D%2216384%22%3E16%20kB%3C/option%3E%0A%20%20%20%20%20%20%20%20%3Coption%20value%3D%2232768%22%3E32%20kB%3C/option%3E%0A%20%20%20%20%20%20%20%20%3Coption%20value%3D%2265536%22%3E64%20kB%3C/option%3E%0A%20%20%20%20%20%20%20%20%3Coption%20value%3D%22131072%22%3E128%20kB%3C/option%3E%0A%20%20%20%20%20%20%20%20%3Coption%20value%3D%22262144%22%3E256%20kB%3C/option%3E%0A%20%20%20%20%20%20%20%20%3Coption%20value%3D%22524288%22%3E512%20kB%3C/option%3E%0A%20%20%20%20%20%20%20%20%3Coption%20value%3D%221048576%22%3E1%20MB%3C/option%3E%0A%20%20%20%20%20%20%20%20%3Coption%20value%3D%222097152%22%3E2%20MB%3C/option%3E%0A%20%20%20%20%20%20%20%20%3Coption%20value%3D%224194304%22%3E4%20MB%3C/option%3E%0A%20%20%20%20%20%20%20%20%3Coption%20value%3D%228388608%22%3E8%20MB%3C/option%3E%0A%20%20%20%20%20%20%20%20%3Coption%20value%3D%2216777216%22%3E16%20MB%3C/option%3E%0A%20%20%20%20%3C/select%3E%0A%20%20%20%20%3C/label%3E%0A%0A%20%20%20%20%3Clabel%20style%3D%22font-size%3A%2022px%3B%20margin-left%3A%2030px%3B%20margin-bottom%3A%2020px%3B%22%20oninput%3D%22TorrentParamsChanged%28%27private%27%29%22%3E%0A%20%20%20%20%20%20%20%20make%20private%0A%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22torrent_is_private%22%20type%3D%22checkbox%22%20style%3D%22transform%3Ascale%282%29%3B%20background%3A%20white%3B%20margin-left%3A%2020px%3B%22%3E%0A%20%20%20%20%3C/label%3E%0A%3C/div%3E%0A%0A%3Clabel%20style%3D%22font-size%3A%2022px%3B%20margin-left%3A%2030px%3B%22%3E%0A%20%20%20%20set%20date%0A%20%20%20%20%3Cinput%20id%3D%22torrent_creation_date%22%20type%3D%22checkbox%22%20style%3D%22transform%3Ascale%282%29%3B%20background%3A%20white%3B%20margin-left%3A%2020px%3B%22%20checked%0A%20%20%20%20%20%20%20%20oninput%3D%22TorrentParamsChanged%28%27creationdate%27%29%22%3E%3C/label%3E%0A%3Cbr%20/%3E%0A%0A%3Cdiv%20id%3D%22trackers_list_overlay%22%3E%0A%20%20%20%20%3Cdiv%20id%3D%22trackers_list%22%3E%0A%20%20%20%20%20%20%20%20%3Cbutton%20style%3D%22position%3A%20absolute%3B%20margin%3A%2010px%200px%200px%2010px%3B%22%20onclick%3D%22ShowTrackers%28false%29%22%3Eclose%3C/button%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22left%3A%2050%25%3B%20font-size%3A%2024px%3B%20text-align%3A%20center%3B%20margin-top%3A%2010px%3B%20margin-bottom%3A%2050px%3B%22%3Eclick%20to%20add%20trackers%3C/div%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22tracker_button_container%22%3E%3C/div%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22margin%3A%2030px%200px%205px%205px%3B%20font-size%3A%2020px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Ca%20href%3D%22https%3A//github.com/ngosang/trackerslist/%22%20style%3D%22color%3Alight-blue%22%3Esource%3C/a%3E%0A%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%3C/div%3E%0A%3C/div%3E%0A%0A%3Cdiv%20style%3D%22position%3A%20relative%3B%22%3E%0A%20%20%20%20%3Ctextarea%20id%3D%22torrent_trackers%22%20class%3D%22input-fullwidth%22%20style%3D%22height%3A%20130px%3B%20margin-top%3A%2020px%3B%20white-space%3A%20pre-wrap%3B%22%0A%20%20%20%20%20%20%20%20placeholder%3D%22Trackers%2C%20separated%20by%20space%20or%20newline%20%28optional%29%22%20oninput%3D%22TorrentParamsChanged%28%27trackers%27%29%22%20onchange%3D%22FormatTextareLines%28this%2C%20false%29%22%3E%3C/textarea%3E%0A%20%20%20%20%3Cbutton%20id%3D%22tracker_add_button%22%20style%3D%22position%3A%20absolute%3B%20right%3A%2035px%3B%20top%3A%2030px%3B%20visibility%3A%20hidden%3B%20opacity%3A%200%3B%20transition%3A%20opacity%200.5s%20ease-in-out%3B%22%0A%20%20%20%20%20%20%20%20onclick%3D%22ShowTrackers%28true%29%22%3E%0A%20%20%20%20%20%20%20%20add%20trackers%0A%20%20%20%20%3C/button%3E%0A%3C/div%3E%0A%3Cbr%20/%3E%0A%3Ctextarea%20type%3D%22text%22%20id%3D%22torrent_webseeds%22%20class%3D%22input-fullwidth%22%20style%3D%22margin-top%3A%200px%3B%20overflow%3A%20hidden%3B%22%0A%20%20%20%20placeholder%3D%22optional%20seeds%22%20oninput%3D%22ResizeTextarea%28this%29%3BTorrentParamsChanged%28%27url-list%27%29%22%0A%20%20%20%20onchange%3D%22FormatTextareLines%28this%29%22%3E%3C/textarea%3E%0A%3Cbr%20/%3E%0A%3Ctextarea%20type%3D%22text%22%20id%3D%22torrent_comment%22%20class%3D%22input-fullwidth%22%20style%3D%22margin-top%3A%200px%3B%20overflow%3A%20hidden%3B%22%0A%20%20%20%20placeholder%3D%22optional%20comments%22%20oninput%3D%22ResizeTextarea%28this%29%3BTorrentParamsChanged%28%27comment%27%29%22%3E%3C/textarea%3E%0A%3Cbr%20/%3E%0A%3Cinput%20type%3D%22text%22%20id%3D%22torrent_source%22%20class%3D%22input-fullwidth%22%20style%3D%22margin-bottom%3A%2020px%3B%22%20placeholder%3D%22optional%20source%22%0A%20%20%20%20oninput%3D%22TorrentParamsChanged%28%27source%27%29%22%3E%0A%3Cbr%20/%3E%0A%0A%3Cdiv%20id%3D%22error_text%22%20style%3D%22display%3A%20none%3B%20font-size%3A%2025px%3B%20color%3A%20%23ff3d58%3B%20margin-left%3A%2020px%3B%20margin-bottom%3A%2020px%3B%20white-space%3A%20pre-line%3B%22%3E%3C/div%3E%0A%0A%3Cdiv%20id%3D%22progressbar_container%22%20class%3D%22progress-bar-hidden%22%20style%3D%22margin-left%3A%2020px%3B%20border%3A%202px%20solid%20%23bcbcbc%3B%20border-radius%3A%205px%3B%20width%3A%20calc%28100%25%20-%2050px%29%3B%20position%3A%20relative%3B%22%3E%0A%20%20%20%20%3Cdiv%20id%3D%22progressbar%22%20style%3D%22background%3A%20%2323b235%3B%20width%3A%200%25%3B%20height%3A%20100%25%3B%20border-radius%3A%203px%3B%22%3E%3C/div%3E%0A%20%20%20%20%3Cdiv%20id%3D%22progressbar_text%22%20style%3D%22display%3Ablock%3B%20position%3A%20absolute%3B%20bottom%3A%204px%3B%20font-size%3A%2025px%3B%20padding-bottom%3A%202px%3B%20padding-left%3A%206px%3B%20text-shadow%3A%202px%202px%205px%20blue%3B%22%3E%3C/div%3E%0A%3C/div%3E%0A%0A%3Cdiv%20id%3D%22progressbar_processing_container%22%20class%3D%22progress-bar-hidden%22%0A%20%20%20%20style%3D%22margin-left%3A%2020px%3B%20margin-top%3A%206px%3B%20border%3A%202px%20solid%20%23bcbcbc%3B%20border-radius%3A%205px%3B%20width%3A%20calc%28100%25%20-%2050px%29%3B%20position%3A%20relative%3B%22%3E%0A%20%20%20%20%3Cdiv%20id%3D%22progressbar_processing%22%20style%3D%22background%3A%20%2323b235%3B%20width%3A%200%25%3B%20height%3A%20100%25%3B%20border-radius%3A%203px%3B%22%3E%3C/div%3E%0A%20%20%20%20%3Cdiv%20id%3D%22progressbar_processing_text%22%20style%3D%22display%3Ablock%3B%20position%3A%20absolute%3B%20bottom%3A%204px%3B%20font-size%3A%2025px%3B%20padding-bottom%3A%202px%3B%20padding-left%3A%206px%3B%20text-shadow%3A%202px%202px%205px%20blue%3B%22%3E%3C/div%3E%0A%3C/div%3E%0A%0A%3Cbutton%20id%3D%22create_torrent_button%22%20style%3D%22display%3A%20grid%3B%20margin%3A%2010px%200px%200px%2010px%3B%20width%3A%20calc%28100%25%20-%2046px%29%3B%20max-width%3A%20300px%3B%20height%3A%2060px%3B%20font-size%3A%2025px%3B%20line-height%3A%2040px%3B%22%0A%20%20%20%20onclick%3D%22CreateTorrent%28%29%22%20disabled%3Ecreate%20torrent%3C/button%3E%0A%3C/div%3E%0A%0A%3Cscript%20src%3D%22dist/index.js%22%3E%3C/script%3E%0A%3Cscript%3E%0Aif%20%28typeof%20Promise%20%3D%3D%3D%20%22undefined%22%29%0A%7B%0A%20%20%20%20var%20scriptElement%20%3D%20document.createElement%28%22script%22%29%3B%0A%20%20%20%20scriptElement.src%20%3D%20%22promise-polyfill.js%22%3B%0A%20%20%20%20document.body.appendChild%28scriptElement%29%3B%0A%7D%0A%3C/script%3E%0A%0A%3C/body%3E%0A%3C/html%3E'))</script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Torrent Time</title>
+
+    <meta
+      name="description"
+      content="Create torrents in the web browser. No software needed."
+    />
+    <meta
+      name="keywords"
+      content="torrent, torrent file, create torrent, browser torrent"
+    />
+    <meta name="author" content="sudo-self" />
+
+    <!-- Open Graph (Facebook, LinkedIn, etc.) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://torrent-time.vercel.app" />
+    <meta property="og:title" content="Torrent Time" />
+    <meta
+      property="og:description"
+      content="Create torrents in the browser. No software needed."
+    />
+    <meta
+      property="og:image"
+      content="https://torrent-time.vercel.app/torrent.png"
+    />
+
+    <!-- Twitter Meta Tags -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://torrent-time.vercel.app" />
+    <meta property="twitter:title" content="Torrent Time" />
+    <meta
+      property="twitter:description"
+      content="Create torrents in the browser. No software needed."
+    />
+    <meta
+      property="twitter:image"
+      content="https://torrent-time.vercel.app/torrent.png"
+    />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      sizes="16x16 32x32"
+      href="favicon.ico"
+    />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+    <link rel="icon" sizes="192x192" href="favicon-192.png" />
+    <link rel="icon" sizes="32x32" href="favicon-32.png" />
+
+    <!-- Microsoft & Theme Color -->
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="favicon-144.png" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="manifest.json" />
+  </head>
+
+  <style>
+    body {
+      background: #323639;
+      color: white;
+      font-family: Sans-Serif;
+    }
+
+    button {
+      background-color: #9085c4;
+      border: none;
+      border-radius: 5px;
+      color: #000000;
+      padding: 10px 15px 10px 15px;
+      font-family: "Verdana";
+      font-size: 24px;
+      cursor: pointer;
+      transition: 0.15s;
+      outline: none;
+    }
+
+    button:hover {
+      background-color: #54adff;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background-color: #77abff;
+      cursor: not-allowed;
+    }
+
+    textarea {
+      color: white;
+      background: #484848;
+      border: 1px solid #8a8a8a;
+      font-size: 22px;
+      margin: 15px;
+      padding: 10px;
+      resize: none;
+      white-space: nowrap;
+      font-family: Sans-Serif;
+    }
+
+    textarea::placeholder {
+      color: #a7a7a7;
+    }
+
+    input[type="text"] {
+      color: white;
+      background: #484848;
+      border: 1px solid #8a8a8a;
+    }
+
+    input[type="text"]::placeholder {
+      color: #a7a7a7;
+    }
+
+    a {
+      color: #32b2ff;
+    }
+
+    select {
+      color: white;
+      background: #484848;
+      border: 1px solid #8a8a8a;
+
+      font-size: 22px;
+      padding: 2px;
+      border-radius: 4px;
+    }
+
+    .progress-bar-visible {
+      visibility: visible;
+      opacity: 1;
+      height: 40px;
+      transition:
+        opacity 0.3s linear,
+        height 0.3s ease-in-out;
+    }
+
+    .progress-bar-hidden {
+      visibility: hidden;
+      opacity: 0;
+      height: 0px;
+      transition:
+        visibility 0s 0.3s,
+        opacity 0.3s linear,
+        height 0.2s ease-in-out;
+    }
+
+    label {
+      white-space: nowrap;
+    }
+
+    #trackers_list_overlay {
+      visibility: hidden;
+      opacity: 0;
+      position: fixed;
+      background: rgba(0, 0, 0, 0.95);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    #trackers_list {
+      display: block;
+      position: relative;
+      border: 2px solid #606060;
+      border-radius: 10px;
+      margin: 20px;
+      background: black;
+      opacity: 1;
+      width: calc(100% - 44px);
+      padding: 5px;
+    }
+
+    .trackers-list-element {
+      margin: 5px;
+      font-size: 16px;
+      padding: 5px;
+      white-space: normal;
+    }
+
+    .tracker-list-element-hidden {
+      visibility: hidden;
+      opacity: 0;
+      transition:
+        opacity 0.15s ease-out,
+        visibility 0s 0.15s;
+    }
+
+    .input-fullwidth {
+      width: calc(100% - 60px);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 22px;
+      padding: 5px;
+      margin-left: 20px;
+    }
+  </style>
+
+  <body>
+    <div
+      id="no_worker_warning"
+      style="display: none; margin: 20px; color: #ff3d58; font-size: 20px"
+    >
+      Your browser does not support
+      <a href="https://caniuse.com/#feat=webworkers">web workers</a>.
+    </div>
+    <div id="page">
+      <a
+        href="https://github.com/sudo-self/torrent-time"
+        style="
+          position: absolute;
+          width: 32px;
+          height: 32px;
+          top: 20px;
+          right: 20px;
+        "
+      >
+        <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            fill="white"
+            d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+          ></path>
+        </svg>
+      </a>
+      <a id="download_link" style="display: none"></a>
+
+      <div style="font-size: 32px; margin: 5px 0px 15px 20px">Torrent Time</div>
+      <button
+        style="width: 200px; margin: 5px 0px 5px 20px"
+        id="filechooserbutton"
+        onclick="document.getElementById('filechooser').click()"
+      >
+        Select file
+      </button>
+      <button
+        style="width: 200px; margin: 5px 0px 5px 20px"
+        id="folderchooserbutton"
+        onclick="document.getElementById('folderchooser').click()"
+      >
+        Select folder
+      </button>
+      <div
+        id="selected_file_info"
+        style="display: inline; font-size: 22px; margin-left: 30px"
+      ></div>
+      <br />
+      <input
+        type="file"
+        style="display: none"
+        id="filechooser"
+        onclick="this.value=null"
+        onchange="FileSelected(this.files)"
+      />
+      <input
+        type="file"
+        style="display: none"
+        id="folderchooser"
+        webkitdirectory
+        onclick="this.value=null"
+        onchange="FolderSelected(this.files)"
+      />
+
+      <div
+        id="no_folder_warning"
+        style="display: none; margin: 20px; color: #ff3d58; font-size: 20px"
+      >
+        Your browser does not support folder selection, so you can only create
+        torrent files from single files. You can check which browsers support
+        folder selection
+        <a href="https://caniuse.com/#feat=input-file-directory">here.</a
+        >&nbsp;&nbsp;&nbsp;&nbsp;
+        <a
+          href="javascript:void(0)"
+          onclick="document.getElementById('no_folder_warning').style.display='none'"
+          >(hide warning)</a
+        >
+      </div>
+      <div
+        id="no_wasm_warning"
+        style="
+          display: none;
+          margin-left: 20px;
+          color: #ff3d58;
+          font-size: 20px;
+        "
+      >
+        Warning: your browser does not support webassembly. It can take a
+        loooong time to read large files. You can check which browsers support
+        webassembly
+        <a href="https://caniuse.com/#feat=wasm">here.</a
+        >&nbsp;&nbsp;&nbsp;&nbsp;
+        <a
+          href="javascript:void(0)"
+          onclick="document.getElementById('no_wasm_warning').style.display='none'"
+          >(hide warning)</a
+        >
+      </div>
+
+      <input
+        type="text"
+        id="torrent_name"
+        class="input-fullwidth"
+        style="margin: 20px"
+        placeholder="title"
+        oninput="TorrentParamsChanged('name')"
+      />
+      <br />
+
+      <div style="display: flex; flex-wrap: wrap">
+        <label
+          style="
+            display: inline;
+            margin-left: 30px;
+            font-size: 22px;
+            border-right: 100px solid transparent;
+          "
+          >block size
+          <select
+            id="torrent_block_size"
+            style="width: 200px; margin-left: 20px; margin-bottom: 20px"
+            oninput="TorrentParamsChanged('blocksize')"
+          >
+            <option value="0">Automatic</option>
+            <option value="16384">16 kB</option>
+            <option value="32768">32 kB</option>
+            <option value="65536">64 kB</option>
+            <option value="131072">128 kB</option>
+            <option value="262144">256 kB</option>
+            <option value="524288">512 kB</option>
+            <option value="1048576">1 MB</option>
+            <option value="2097152">2 MB</option>
+            <option value="4194304">4 MB</option>
+            <option value="8388608">8 MB</option>
+            <option value="16777216">16 MB</option>
+          </select>
+        </label>
+
+        <label
+          style="font-size: 22px; margin-left: 30px; margin-bottom: 20px"
+          oninput="TorrentParamsChanged('private')"
+        >
+          make private
+          <input
+            id="torrent_is_private"
+            type="checkbox"
+            style="transform: scale(2); background: white; margin-left: 20px"
+          />
+        </label>
+      </div>
+
+      <label style="font-size: 22px; margin-left: 30px">
+        set date
+        <input
+          id="torrent_creation_date"
+          type="checkbox"
+          style="transform: scale(2); background: white; margin-left: 20px"
+          checked
+          oninput="TorrentParamsChanged('creationdate')"
+      /></label>
+      <br />
+
+      <div id="trackers_list_overlay">
+        <div id="trackers_list">
+          <button
+            style="position: absolute; margin: 10px 0px 0px 10px"
+            onclick="ShowTrackers(false)"
+          >
+            close
+          </button>
+          <div
+            style="
+              left: 50%;
+              font-size: 24px;
+              text-align: center;
+              margin-top: 10px;
+              margin-bottom: 50px;
+            "
+          >
+            click to add trackers
+          </div>
+          <div id="tracker_button_container"></div>
+          <div style="margin: 30px 0px 5px 5px; font-size: 20px">
+            <a
+              href="https://github.com/ngosang/trackerslist/"
+              style="color: light-blue"
+              >source</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <div style="position: relative">
+        <textarea
+          id="torrent_trackers"
+          class="input-fullwidth"
+          style="height: 130px; margin-top: 20px; white-space: pre-wrap"
+          placeholder="Trackers, separated by space or newline (optional)"
+          oninput="TorrentParamsChanged('trackers')"
+          onchange="FormatTextareLines(this, false)"
+        ></textarea>
+        <button
+          id="tracker_add_button"
+          style="
+            position: absolute;
+            right: 35px;
+            top: 30px;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+          "
+          onclick="ShowTrackers(true)"
+        >
+          add trackers
+        </button>
+      </div>
+      <br />
+      <textarea
+        type="text"
+        id="torrent_webseeds"
+        class="input-fullwidth"
+        style="margin-top: 0px; overflow: hidden"
+        placeholder="optional seeds"
+        oninput="ResizeTextarea(this);TorrentParamsChanged('url-list')"
+        onchange="FormatTextareLines(this)"
+      ></textarea>
+      <br />
+      <textarea
+        type="text"
+        id="torrent_comment"
+        class="input-fullwidth"
+        style="margin-top: 0px; overflow: hidden"
+        placeholder="optional comments"
+        oninput="ResizeTextarea(this);TorrentParamsChanged('comment')"
+      ></textarea>
+      <br />
+      <input
+        type="text"
+        id="torrent_source"
+        class="input-fullwidth"
+        style="margin-bottom: 20px"
+        placeholder="optional source"
+        oninput="TorrentParamsChanged('source')"
+      />
+      <br />
+
+      <div
+        id="error_text"
+        style="
+          display: none;
+          font-size: 25px;
+          color: #ff3d58;
+          margin-left: 20px;
+          margin-bottom: 20px;
+          white-space: pre-line;
+        "
+      ></div>
+
+      <div
+        id="progressbar_container"
+        class="progress-bar-hidden"
+        style="
+          margin-left: 20px;
+          border: 2px solid #bcbcbc;
+          border-radius: 5px;
+          width: calc(100% - 50px);
+          position: relative;
+        "
+      >
+        <div
+          id="progressbar"
+          style="
+            background: #23b235;
+            width: 0%;
+            height: 100%;
+            border-radius: 3px;
+          "
+        ></div>
+        <div
+          id="progressbar_text"
+          style="
+            display: block;
+            position: absolute;
+            bottom: 4px;
+            font-size: 25px;
+            padding-bottom: 2px;
+            padding-left: 6px;
+            text-shadow: 2px 2px 5px blue;
+          "
+        ></div>
+      </div>
+
+      <div
+        id="progressbar_processing_container"
+        class="progress-bar-hidden"
+        style="
+          margin-left: 20px;
+          margin-top: 6px;
+          border: 2px solid #bcbcbc;
+          border-radius: 5px;
+          width: calc(100% - 50px);
+          position: relative;
+        "
+      >
+        <div
+          id="progressbar_processing"
+          style="
+            background: #23b235;
+            width: 0%;
+            height: 100%;
+            border-radius: 3px;
+          "
+        ></div>
+        <div
+          id="progressbar_processing_text"
+          style="
+            display: block;
+            position: absolute;
+            bottom: 4px;
+            font-size: 25px;
+            padding-bottom: 2px;
+            padding-left: 6px;
+            text-shadow: 2px 2px 5px blue;
+          "
+        ></div>
+      </div>
+
+      <button
+        id="create_torrent_button"
+        style="
+          display: grid;
+          margin: 10px 0px 0px 10px;
+          width: calc(100% - 46px);
+          max-width: 300px;
+          height: 60px;
+          font-size: 25px;
+          line-height: 40px;
+        "
+        onclick="CreateTorrent()"
+        disabled
+      >
+        create torrent
+      </button>
+    </div>
+
+    <script src="dist/index.js"></script>
+    <script>
+      if (typeof Promise === "undefined") {
+        var scriptElement = document.createElement("script");
+        scriptElement.src = "promise-polyfill.js";
+        document.body.appendChild(scriptElement);
+      }
+    </script>
+  </body>
+</html>
