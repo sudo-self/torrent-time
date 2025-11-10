@@ -5,6 +5,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     
+    <!-- Mobile-specific meta tags -->
+    <meta name="theme-color" content="#323639" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -57,73 +62,113 @@
   </head>
 
   <style>
+    :root {
+      --primary-color: #9085c4;
+      --primary-hover: #54adff;
+      --primary-disabled: #77abff;
+      --bg-color: #323639;
+      --text-color: white;
+      --input-bg: #484848;
+      --input-border: #8a8a8a;
+      --placeholder-color: #a7a7a7;
+      --error-color: #ff3d58;
+      --success-color: #23b235;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      background: #323639;
-      color: white;
-      font-family: Sans-Serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.5;
     }
 
     button {
-      background-color: #9085c4;
+      background-color: var(--primary-color);
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       color: #000000;
-      padding: 10px 15px 10px 15px;
-      font-family: "Verdana";
-      font-size: 24px;
+      padding: 14px 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 18px;
+      font-weight: 500;
       cursor: pointer;
-      transition: 0.15s;
+      transition: all 0.2s ease;
       outline: none;
+      display: block;
+      width: 100%;
+      max-width: 300px;
+      margin: 10px auto;
+      min-height: 50px;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    button:hover {
-      background-color: #54adff;
-      cursor: pointer;
+    button:hover, button:focus {
+      background-color: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    button:active {
+      transform: translateY(0);
     }
 
     button:disabled {
-      background-color: #77abff;
+      background-color: var(--primary-disabled);
       cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
     }
 
-    textarea {
-      color: white;
-      background: #484848;
-      border: 1px solid #8a8a8a;
-      font-size: 22px;
-      margin: 15px;
-      padding: 10px;
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .button-group button {
+      flex: 1;
+      min-width: 140px;
+      margin: 0;
+    }
+
+    textarea, input[type="text"], select {
+      color: var(--text-color);
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      font-size: 16px;
+      margin: 10px 0;
+      padding: 12px;
       resize: none;
-      white-space: nowrap;
-      font-family: Sans-Serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      border-radius: 6px;
+      width: 100%;
+      -webkit-appearance: none;
     }
 
-    textarea::placeholder {
-      color: #a7a7a7;
-    }
-
-    input[type="text"] {
-      color: white;
-      background: #484848;
-      border: 1px solid #8a8a8a;
-    }
-
-    input[type="text"]::placeholder {
-      color: #a7a7a7;
+    textarea::placeholder, input[type="text"]::placeholder {
+      color: var(--placeholder-color);
     }
 
     a {
       color: #32b2ff;
+      text-decoration: none;
+    }
+
+    a:hover, a:focus {
+      text-decoration: underline;
     }
 
     select {
-      color: white;
-      background: #484848;
-      border: 1px solid #8a8a8a;
-
-      font-size: 22px;
-      padding: 2px;
-      border-radius: 4px;
+      padding: 12px;
+      font-size: 16px;
     }
 
     .progress-bar-visible {
@@ -146,7 +191,11 @@
     }
 
     label {
-      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      margin: 15px 0;
+      font-size: 16px;
+      cursor: pointer;
     }
 
     #trackers_list_overlay {
@@ -158,26 +207,40 @@
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: 1;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      transition: opacity 0.3s ease;
     }
 
     #trackers_list {
       display: block;
-      position: relative;
       border: 2px solid #606060;
       border-radius: 10px;
-      margin: 20px;
       background: black;
       opacity: 1;
-      width: calc(100% - 44px);
-      padding: 5px;
+      width: 100%;
+      max-width: 600px;
+      padding: 20px;
+      max-height: 80vh;
+      overflow-y: auto;
     }
 
     .trackers-list-element {
-      margin: 5px;
+      margin: 10px 0;
       font-size: 16px;
-      padding: 5px;
+      padding: 10px;
       white-space: normal;
+      background: #2a2a2a;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .trackers-list-element:hover, .trackers-list-element:focus {
+      background: #3a3a3a;
     }
 
     .tracker-list-element-hidden {
@@ -189,62 +252,221 @@
     }
 
     .input-fullwidth {
-      width: calc(100% - 60px);
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 22px;
-      padding: 5px;
-      margin-left: 20px;
+      width: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 16px;
+      padding: 12px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .github-link {
+      width: 32px;
+      height: 32px;
+    }
+
+    .file-info {
+      font-size: 18px;
+      margin: 15px 0;
+      text-align: center;
+      word-break: break-all;
+    }
+
+    .warning {
+      background: rgba(255, 61, 88, 0.1);
+      border-left: 4px solid var(--error-color);
+      padding: 12px 15px;
+      margin: 15px 0;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .form-group {
+      margin: 20px 0;
+    }
+
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin: 15px 0;
+    }
+
+    .form-row > * {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      margin: 15px 0;
+    }
+
+    .checkbox-container input[type="checkbox"] {
+      transform: scale(1.5);
+      margin-right: 15px;
+    }
+
+    .textarea-container {
+      position: relative;
+      margin: 15px 0;
+    }
+
+    .tracker-add-button {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      width: auto;
+      padding: 8px 12px;
+      font-size: 14px;
+    }
+
+    .progress-container {
+      margin: 20px 0;
+      border: 2px solid #bcbcbc;
+      border-radius: 8px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      background: var(--success-color);
+      width: 0%;
+      height: 100%;
+      border-radius: 6px;
+      transition: width 0.3s ease;
+    }
+
+    .progress-text {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      font-size: 16px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    .error-text {
+      font-size: 18px;
+      color: var(--error-color);
+      margin: 15px 0;
+      white-space: pre-line;
+      padding: 10px;
+      background: rgba(255, 61, 88, 0.1);
+      border-radius: 6px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 15px;
+      }
+      
+      .title {
+        font-size: 24px;
+      }
+      
+      .button-group {
+        flex-direction: column;
+      }
+      
+      .button-group button {
+        width: 100%;
+      }
+      
+      .form-row {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      #trackers_list {
+        padding: 15px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .container {
+        padding: 10px;
+      }
+      
+      button {
+        padding: 12px 15px;
+        font-size: 16px;
+      }
+      
+      .title {
+        font-size: 22px;
+      }
     }
   </style>
 
   <body>
-    <div
-      id="no_worker_warning"
-      style="display: none; margin: 20px; color: #ff3d58; font-size: 20px"
-    >
-      Your browser does not support
-      <a href="https://caniuse.com/#feat=webworkers">web workers</a>.
-    </div>
-    <div id="page">
-      <a
-        href="https://github.com/sudo-self/torrent-time"
-        style="
-          position: absolute;
-          width: 32px;
-          height: 32px;
-          top: 20px;
-          right: 20px;
-        "
+    <div class="container">
+      <div class="header">
+        <h1 class="title">Torrent Time</h1>
+        <a
+          href="https://github.com/sudo-self/torrent-time"
+          class="github-link"
+          aria-label="View source code on GitHub"
+        >
+          <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill="white"
+              d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+            ></path>
+          </svg>
+        </a>
+      </div>
+
+      <div
+        id="no_worker_warning"
+        class="warning"
+        style="display: none;"
       >
-        <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path
-            fill="white"
-            d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
-          ></path>
-        </svg>
-      </a>
+        Your browser does not support
+        <a href="https://caniuse.com/#feat=webworkers">web workers</a>.
+      </div>
+
       <a id="download_link" style="display: none"></a>
 
-      <div style="font-size: 32px; margin: 5px 0px 15px 20px">Torrent Time</div>
-      <button
-        style="width: 200px; margin: 5px 0px 5px 20px"
-        id="filechooserbutton"
-        onclick="document.getElementById('filechooser').click()"
-      >
-        Select file
-      </button>
-      <button
-        style="width: 200px; margin: 5px 0px 5px 20px"
-        id="folderchooserbutton"
-        onclick="document.getElementById('folderchooser').click()"
-      >
-        Select folder
-      </button>
-      <div
-        id="selected_file_info"
-        style="display: inline; font-size: 22px; margin-left: 30px"
-      ></div>
-      <br />
+      <div class="button-group">
+        <button
+          id="filechooserbutton"
+          onclick="document.getElementById('filechooser').click()"
+        >
+          Select File
+        </button>
+        <button
+          id="folderchooserbutton"
+          onclick="document.getElementById('folderchooser').click()"
+        >
+          Select Folder
+        </button>
+      </div>
+
+      <div id="selected_file_info" class="file-info"></div>
+
       <input
         type="file"
         style="display: none"
@@ -263,283 +485,200 @@
 
       <div
         id="no_folder_warning"
-        style="display: none; margin: 20px; color: #ff3d58; font-size: 20px"
+        class="warning"
+        style="display: none;"
       >
         Your browser does not support folder selection, so you can only create
         torrent files from single files. You can check which browsers support
         folder selection
-        <a href="https://caniuse.com/#feat=input-file-directory">here.</a
-        >&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="https://caniuse.com/#feat=input-file-directory">here.</a>
         <a
           href="javascript:void(0)"
           onclick="document.getElementById('no_folder_warning').style.display='none'"
-          >(hide warning)</a
-        >
+          style="display: block; margin-top: 5px;"
+        >(hide warning)</a>
       </div>
+
       <div
         id="no_wasm_warning"
-        style="
-          display: none;
-          margin-left: 20px;
-          color: #ff3d58;
-          font-size: 20px;
-        "
+        class="warning"
+        style="display: none;"
       >
         Warning: your browser does not support webassembly. It can take a
         loooong time to read large files. You can check which browsers support
         webassembly
-        <a href="https://caniuse.com/#feat=wasm">here.</a
-        >&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="https://caniuse.com/#feat=wasm">here.</a>
         <a
           href="javascript:void(0)"
           onclick="document.getElementById('no_wasm_warning').style.display='none'"
-          >(hide warning)</a
-        >
+          style="display: block; margin-top: 5px;"
+        >(hide warning)</a>
       </div>
 
-      <input
-        type="text"
-        id="torrent_name"
-        class="input-fullwidth"
-        style="margin: 20px"
-        placeholder="title"
-        oninput="TorrentParamsChanged('name')"
-      />
-      <br />
+      <div class="form-group">
+        <input
+          type="text"
+          id="torrent_name"
+          class="input-fullwidth"
+          placeholder="Title"
+          oninput="TorrentParamsChanged('name')"
+        />
+      </div>
 
-      <div style="display: flex; flex-wrap: wrap">
-        <label
-          style="
-            display: inline;
-            margin-left: 30px;
-            font-size: 22px;
-            border-right: 100px solid transparent;
-          "
-          >block size
-          <select
-            id="torrent_block_size"
-            style="width: 200px; margin-left: 20px; margin-bottom: 20px"
-            oninput="TorrentParamsChanged('blocksize')"
-          >
-            <option value="0">Automatic</option>
-            <option value="16384">16 kB</option>
-            <option value="32768">32 kB</option>
-            <option value="65536">64 kB</option>
-            <option value="131072">128 kB</option>
-            <option value="262144">256 kB</option>
-            <option value="524288">512 kB</option>
-            <option value="1048576">1 MB</option>
-            <option value="2097152">2 MB</option>
-            <option value="4194304">4 MB</option>
-            <option value="8388608">8 MB</option>
-            <option value="16777216">16 MB</option>
-          </select>
-        </label>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="torrent_block_size">
+            Block Size
+            <select
+              id="torrent_block_size"
+              oninput="TorrentParamsChanged('blocksize')"
+            >
+              <option value="0">Automatic</option>
+              <option value="16384">16 kB</option>
+              <option value="32768">32 kB</option>
+              <option value="65536">64 kB</option>
+              <option value="131072">128 kB</option>
+              <option value="262144">256 kB</option>
+              <option value="524288">512 kB</option>
+              <option value="1048576">1 MB</option>
+              <option value="2097152">2 MB</option>
+              <option value="4194304">4 MB</option>
+              <option value="8388608">8 MB</option>
+              <option value="16777216">16 MB</option>
+            </select>
+          </label>
+        </div>
 
-        <label
-          style="font-size: 22px; margin-left: 30px; margin-bottom: 20px"
-          oninput="TorrentParamsChanged('private')"
-        >
-          make private
+        <div class="checkbox-container">
           <input
             id="torrent_is_private"
             type="checkbox"
-            style="transform: scale(2); background: white; margin-left: 20px"
+            oninput="TorrentParamsChanged('private')"
           />
-        </label>
+          <label for="torrent_is_private">Make Private</label>
+        </div>
       </div>
 
-      <label style="font-size: 22px; margin-left: 30px">
-        set date
+      <div class="checkbox-container">
         <input
           id="torrent_creation_date"
           type="checkbox"
-          style="transform: scale(2); background: white; margin-left: 20px"
           checked
           oninput="TorrentParamsChanged('creationdate')"
-      /></label>
-      <br />
+        />
+        <label for="torrent_creation_date">Set Date</label>
+      </div>
 
       <div id="trackers_list_overlay">
         <div id="trackers_list">
           <button
-            style="position: absolute; margin: 10px 0px 0px 10px"
             onclick="ShowTrackers(false)"
+            style="width: auto; margin-bottom: 20px;"
           >
-            close
+            Close
           </button>
-          <div
-            style="
-              left: 50%;
-              font-size: 24px;
-              text-align: center;
-              margin-top: 10px;
-              margin-bottom: 50px;
-            "
-          >
-            click to add trackers
+          <div style="text-align: center; margin-bottom: 20px; font-size: 18px;">
+            Click to add trackers
           </div>
           <div id="tracker_button_container"></div>
-          <div style="margin: 30px 0px 5px 5px; font-size: 20px">
+          <div style="margin-top: 20px; font-size: 16px;">
             <a
               href="https://github.com/ngosang/trackerslist/"
-              style="color: light-blue"
-              >source</a
-            >
+            >source</a>
           </div>
         </div>
       </div>
 
-      <div style="position: relative">
-        <textarea
-          id="torrent_trackers"
-          class="input-fullwidth"
-          style="height: 130px; margin-top: 20px; white-space: pre-wrap"
-          placeholder="Trackers, separated by space or newline (optional)"
-          oninput="TorrentParamsChanged('trackers')"
-          onchange="FormatTextareLines(this, false)"
-        ></textarea>
-        <button
-          id="tracker_add_button"
-          style="
-            position: absolute;
-            right: 35px;
-            top: 30px;
-            visibility: hidden;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-          "
-          onclick="ShowTrackers(true)"
-        >
-          add trackers
-        </button>
+      <div class="form-group">
+        <div class="textarea-container">
+          <textarea
+            id="torrent_trackers"
+            class="input-fullwidth"
+            style="height: 130px; white-space: pre-wrap"
+            placeholder="Trackers, separated by space or newline (optional)"
+            oninput="TorrentParamsChanged('trackers')"
+            onchange="FormatTextareLines(this, false)"
+          ></textarea>
+          <button
+            id="tracker_add_button"
+            class="tracker-add-button"
+            onclick="ShowTrackers(true)"
+          >
+            Add Trackers
+          </button>
+        </div>
       </div>
-      <br />
-      <textarea
-        type="text"
-        id="torrent_webseeds"
-        class="input-fullwidth"
-        style="margin-top: 0px; overflow: hidden"
-        placeholder="optional seeds"
-        oninput="ResizeTextarea(this);TorrentParamsChanged('url-list')"
-        onchange="FormatTextareLines(this)"
-      ></textarea>
-      <br />
-      <textarea
-        type="text"
-        id="torrent_comment"
-        class="input-fullwidth"
-        style="margin-top: 0px; overflow: hidden"
-        placeholder="optional comments"
-        oninput="ResizeTextarea(this);TorrentParamsChanged('comment')"
-      ></textarea>
-      <br />
-      <input
-        type="text"
-        id="torrent_source"
-        class="input-fullwidth"
-        style="margin-bottom: 20px"
-        placeholder="optional source"
-        oninput="TorrentParamsChanged('source')"
-      />
-      <br />
+
+      <div class="form-group">
+        <textarea
+          id="torrent_webseeds"
+          class="input-fullwidth"
+          placeholder="Optional web seeds"
+          oninput="ResizeTextarea(this);TorrentParamsChanged('url-list')"
+          onchange="FormatTextareLines(this)"
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <textarea
+          id="torrent_comment"
+          class="input-fullwidth"
+          placeholder="Optional comments"
+          oninput="ResizeTextarea(this);TorrentParamsChanged('comment')"
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <input
+          type="text"
+          id="torrent_source"
+          class="input-fullwidth"
+          placeholder="Optional source"
+          oninput="TorrentParamsChanged('source')"
+        />
+      </div>
 
       <div
         id="error_text"
-        style="
-          display: none;
-          font-size: 25px;
-          color: #ff3d58;
-          margin-left: 20px;
-          margin-bottom: 20px;
-          white-space: pre-line;
-        "
+        class="error-text"
+        style="display: none;"
       ></div>
 
       <div
         id="progressbar_container"
-        class="progress-bar-hidden"
-        style="
-          margin-left: 20px;
-          border: 2px solid #bcbcbc;
-          border-radius: 5px;
-          width: calc(100% - 50px);
-          position: relative;
-        "
+        class="progress-container progress-bar-hidden"
       >
         <div
           id="progressbar"
-          style="
-            background: #23b235;
-            width: 0%;
-            height: 100%;
-            border-radius: 3px;
-          "
+          class="progress-bar"
         ></div>
         <div
           id="progressbar_text"
-          style="
-            display: block;
-            position: absolute;
-            bottom: 4px;
-            font-size: 25px;
-            padding-bottom: 2px;
-            padding-left: 6px;
-            text-shadow: 2px 2px 5px blue;
-          "
+          class="progress-text"
         ></div>
       </div>
 
       <div
         id="progressbar_processing_container"
-        class="progress-bar-hidden"
-        style="
-          margin-left: 20px;
-          margin-top: 6px;
-          border: 2px solid #bcbcbc;
-          border-radius: 5px;
-          width: calc(100% - 50px);
-          position: relative;
-        "
+        class="progress-container progress-bar-hidden"
+        style="margin-top: 10px;"
       >
         <div
           id="progressbar_processing"
-          style="
-            background: #23b235;
-            width: 0%;
-            height: 100%;
-            border-radius: 3px;
-          "
+          class="progress-bar"
         ></div>
         <div
           id="progressbar_processing_text"
-          style="
-            display: block;
-            position: absolute;
-            bottom: 4px;
-            font-size: 25px;
-            padding-bottom: 2px;
-            padding-left: 6px;
-            text-shadow: 2px 2px 5px blue;
-          "
+          class="progress-text"
         ></div>
       </div>
 
       <button
         id="create_torrent_button"
-        style="
-          display: grid;
-          margin: 10px 0px 0px 10px;
-          width: calc(100% - 46px);
-          max-width: 300px;
-          height: 60px;
-          font-size: 25px;
-          line-height: 40px;
-        "
         onclick="CreateTorrent()"
         disabled
       >
-        create torrent
+        Create Torrent
       </button>
     </div>
 
