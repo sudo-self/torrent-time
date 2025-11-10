@@ -171,23 +171,58 @@
       font-size: 16px;
     }
 
-    .progress-bar-visible {
-      visibility: visible;
-      opacity: 1;
-      height: 40px;
-      transition:
-        opacity 0.3s linear,
-        height 0.3s ease-in-out;
+    .progress-container {
+      margin: 20px 0;
+      border: 2px solid #bcbcbc;
+      border-radius: 8px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      height: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease-in-out;
     }
 
-    .progress-bar-hidden {
-      visibility: hidden;
-      opacity: 0;
-      height: 0px;
-      transition:
-        visibility 0s 0.3s,
-        opacity 0.3s linear,
-        height 0.2s ease-in-out;
+    .progress-container.visible {
+      height: 44px;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .progress-bar {
+      background: var(--success-color);
+      width: 0%;
+      height: 100%;
+      border-radius: 6px;
+      transition: width 0.3s ease;
+      position: relative;
+    }
+
+    .progress-text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 500;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+      color: white;
+      z-index: 2;
+    }
+
+    .progress-bar-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--input-bg);
+      z-index: 1;
     }
 
     label {
@@ -341,33 +376,6 @@
       font-size: 14px;
     }
 
-    .progress-container {
-      margin: 20px 0;
-      border: 2px solid #bcbcbc;
-      border-radius: 8px;
-      width: 100%;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .progress-bar {
-      background: var(--success-color);
-      width: 0%;
-      height: 100%;
-      border-radius: 6px;
-      transition: width 0.3s ease;
-    }
-
-    .progress-text {
-      display: block;
-      position: absolute;
-      top: 50%;
-      left: 10px;
-      transform: translateY(-50%);
-      font-size: 16px;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-    }
-
     .error-text {
       font-size: 18px;
       color: var(--error-color);
@@ -376,6 +384,19 @@
       padding: 10px;
       background: rgba(255, 61, 88, 0.1);
       border-radius: 6px;
+    }
+
+    .status-container {
+      margin: 20px 0;
+    }
+
+    .status-message {
+      font-size: 16px;
+      margin: 10px 0;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      text-align: center;
     }
 
     @media (max-width: 600px) {
@@ -403,6 +424,12 @@
       #trackers_list {
         padding: 15px;
       }
+      
+      .progress-text {
+        font-size: 14px;
+        padding: 0 10px;
+        text-align: center;
+      }
     }
 
     @media (max-width: 400px) {
@@ -417,6 +444,14 @@
       
       .title {
         font-size: 22px;
+      }
+      
+      .progress-container.visible {
+        height: 40px;
+      }
+      
+      .progress-text {
+        font-size: 13px;
       }
     }
   </style>
@@ -644,33 +679,40 @@
         style="display: none;"
       ></div>
 
-      <div
-        id="progressbar_container"
-        class="progress-container progress-bar-hidden"
-      >
+      <!-- Improved Progress Indicators -->
+      <div class="status-container">
+        <div id="status_message" class="status-message" style="display: none;"></div>
+        
         <div
-          id="progressbar"
-          class="progress-bar"
-        ></div>
-        <div
-          id="progressbar_text"
-          class="progress-text"
-        ></div>
-      </div>
+          id="progressbar_container"
+          class="progress-container"
+        >
+          <div class="progress-bar-background"></div>
+          <div
+            id="progressbar"
+            class="progress-bar"
+          ></div>
+          <div
+            id="progressbar_text"
+            class="progress-text"
+          ></div>
+        </div>
 
-      <div
-        id="progressbar_processing_container"
-        class="progress-container progress-bar-hidden"
-        style="margin-top: 10px;"
-      >
         <div
-          id="progressbar_processing"
-          class="progress-bar"
-        ></div>
-        <div
-          id="progressbar_processing_text"
-          class="progress-text"
-        ></div>
+          id="progressbar_processing_container"
+          class="progress-container"
+          style="margin-top: 10px;"
+        >
+          <div class="progress-bar-background"></div>
+          <div
+            id="progressbar_processing"
+            class="progress-bar"
+          ></div>
+          <div
+            id="progressbar_processing_text"
+            class="progress-text"
+          ></div>
+        </div>
       </div>
 
       <button
@@ -689,6 +731,47 @@
         scriptElement.src = "promise-polyfill.js";
         document.body.appendChild(scriptElement);
       }
+
+      // Helper functions for progress display
+      function showProgress(containerId, textId, barId, show) {
+        const container = document.getElementById(containerId);
+        if (show) {
+          container.classList.add('visible');
+        } else {
+          container.classList.remove('visible');
+        }
+      }
+
+      function updateProgress(containerId, textId, barId, percent, text) {
+        const container = document.getElementById(containerId);
+        const textElement = document.getElementById(textId);
+        const bar = document.getElementById(barId);
+        
+        if (!container.classList.contains('visible')) {
+          container.classList.add('visible');
+        }
+        
+        bar.style.width = percent + '%';
+        textElement.textContent = text;
+      }
+
+      function showStatusMessage(message) {
+        const statusElement = document.getElementById('status_message');
+        statusElement.textContent = message;
+        statusElement.style.display = 'block';
+      }
+
+      function hideStatusMessage() {
+        const statusElement = document.getElementById('status_message');
+        statusElement.style.display = 'none';
+      }
+
+      // Override the existing progress functions if they exist
+      // This will ensure the progress displays work correctly
+      window.updateProgress = updateProgress;
+      window.showProgress = showProgress;
+      window.showStatusMessage = showStatusMessage;
+      window.hideStatusMessage = hideStatusMessage;
     </script>
   </body>
 </html>
